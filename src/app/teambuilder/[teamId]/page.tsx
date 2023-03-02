@@ -97,7 +97,7 @@ const TeamBuilder = ({ teamId }: SpecieParam) => {
           className="flex h-8 px-2 rounded-md outline-none appearance-none font-bold bg-transparent hover:bg-white/10 focus:bg-white/10"
         />
       </div>
-      <motion.div className="z-10 sticky top-16 flex flex-col pt-4 backdrop-blur-lg bg-neutral-900/70 border-bzzborder-white/20 shadow-lg touch-none">
+      <motion.div className="z-10 sticky top-16 flex flex-col pt-4 backdrop-blur-lg bg-neutral-900/70 shadow-lg touch-none">
         <Tab.Group
           as="div"
           className="z-10 relative pack-content flex flex-col w-full"

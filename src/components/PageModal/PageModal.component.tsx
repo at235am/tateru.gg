@@ -21,7 +21,7 @@ export const PageModal = ({ isOpen, setIsOpen, children }: PageModalProps) => {
         aria-hidden="true"
       />
       {/* The actual panel */}
-      <div className="fixed inset-0 gridzzplace-items-center border border-red-500">
+      <div className="fixed inset-0 grid place-items-center">
         <Dialog.Panel
           className={clsx(
             "relative flex flex-col gap-6 bg-neutral-800/60 backdrop-blur-md rounded-xl p-6",

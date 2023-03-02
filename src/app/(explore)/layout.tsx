@@ -36,9 +36,7 @@ export default async function SpecieLayout({ children }: SpecieLayoutProps) {
 
   return (
     <div className="pack-content flex flex-col md:flex-row gap-8 h-full">
-      <div className="z-10 sticky top-16 md:min-h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] md:min-w-[20rem] md:max-w-[20rem]">
-        <SidebarTabs species={allSpecies} />
-      </div>
+      <SidebarTabs species={allSpecies} />
       <div className="z-0 relative flex flex-col gap-4 py-4 flex-1">
         {children}
       </div>

@@ -172,11 +172,10 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
 
     return (
       <div className="flex flex-col gap-2">
-        <div className="group relative flex min-h-[3rem] overflow-hidden w-full rounded-lg text-base caret-white bg-neutral-800">
-          <div className="absolute bottom-0 left-0 w-full h-[2px] group-focus-within:bg-neutral-500/50" />
+        <div className="group relative flex min-h-[3rem] w-full rounded-lg text-base caret-white bg-neutral-800 focus-within:bg-white/10 focus-within:ring-1 ring-white/10 ring-inset">
           <button
             type="button"
-            className="grid place-items-center pl-3 pr-2 rounded-tl-lg rounded-bl-lg outline-none appearance-none focus-visible:ring-1 ring-white ring-inset text-neutral-500 "
+            className="grid place-items-center pl-3 pr-2 rounded-tl-lg rounded-bl-lg outline-none appearance-none focus-visible:ring-1 ring-white ring-inset text-neutral-500 bg-transparent"
             onClick={resetQueryFilter}
           >
             {inputFilterValue === "" ? <IconSearch /> : <IconX />}
@@ -189,7 +188,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
             placeholder={placeholder_text[query.filterType]}
             className={clsx(
               "outline-none appearance-none",
-              "flex w-full text-base caret-white bg-neutral-800 pr-2 rounded-tr-lg rounded-br-lg",
+              "flex w-full text-base caret-white bg-transparent pr-2 rounded-tr-lg rounded-br-lg",
               "placeholder:text-neutral-600"
             )}
             value={inputFilterValue}
@@ -202,15 +201,15 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
           />
         </div>
 
-        <div className="relative w-full z-10">
-          <div className="absolute w-full flex gap-2">
-            <FilterMenu
-              value={query.filterType}
-              onChange={updateFilterType}
-              list={filterValues}
-            />
-            <SortMenu />
-          </div>
+        <div className="relative w-full z-10 flex gap-2">
+          {/* <div className="absolute w-full flex gap-2"> */}
+          <FilterMenu
+            value={query.filterType}
+            onChange={updateFilterType}
+            list={filterValues}
+          />
+          <SortMenu />
+          {/* </div> */}
         </div>
       </div>
     );

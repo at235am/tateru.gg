@@ -1,37 +1,26 @@
 "use client";
+import clsx from "clsx";
 import Image from "next/image";
-import {
-  Dispatch,
-  forwardRef,
-  Fragment,
-  MutableRefObject,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import Link from "next/link";
+import useVirtualScroll from "../../hooks/useVirtualScroll";
+
 import { useHasMounted } from "../../hooks/useHasMounted";
 import { useFavoritesStore } from "../../store/favorites-store";
 import { MinTemtem } from "../../app/(explore)/layout";
-import clsx from "clsx";
 import { ElementTypeLabel } from "../ElementTypeLabel/ElementTypeLabel";
 import { formatTemName, zeroPad } from "../../utils/utils";
 import { useUrlQuery } from "../SpecieList/useUrlQuery";
-import Link from "next/link";
-import useVirtualScroll from "../../hooks/useVirtualScroll";
 import { useFetchTemQuery } from "../../hooks/useFetchTemQuery";
 import { IconChevronRight, IconTrash } from "@tabler/icons-react";
-import React from "react";
-import { getSpecieLinkId } from "../SpecieList/SpecieList.component";
+import { forwardRef, Fragment, useEffect, useRef, useState } from "react";
+import { useSidebarState } from "../../store/sidebar-store";
 
 export const Favorites = forwardRef<HTMLDivElement>(function Favorites(
   props,
-  ref: React.ForwardedRef<HTMLDivElement>
+  ref
 ) {
   const mounted = useHasMounted();
-
   if (!mounted) return <></>;
-
   return <FavoritesComponent {...props} ref={ref} />;
 });
 
@@ -45,7 +34,6 @@ const FavoritesComponent = forwardRef<HTMLDivElement>(
     } = useFavoritesStore();
 
     const [hasXFavorites, setHasXFavorites] = useState(false);
-    const [activeItemId, setActiveItemId] = useState("");
 
     useEffect(() => {
       favoriteTems.length > 0
@@ -76,7 +64,7 @@ const FavoritesComponent = forwardRef<HTMLDivElement>(
           <div className="relative w-full z-10">
             <button
               className={clsx(
-                "absolute rounded-lg h-8 font-bold text-xs w-full text-red-500 bg-red-800/50",
+                "rounded-lg h-8 font-bold text-xs w-full text-red-500 bg-red-800/50",
                 "flex justify-center items-center gap-2",
                 "outline-none appearance-none focus-visible:ring-1 ring-white ring-inset"
               )}
@@ -91,12 +79,12 @@ const FavoritesComponent = forwardRef<HTMLDivElement>(
         </div>
         <div
           ref={ref}
-          className="relative flex flex-col h-full w-full overflow-hidden bg-neutral-900"
+          className="relative flex flex-col h-full w-full overflow-hidden"
         >
           <div
             ref={scrollRef}
             className={clsx(
-              "flex flex-col gap-4 h-full py-8 custom-scrollbar-tiny overflow-y-auto overflow-x-hidden",
+              "flex flex-col gap-4 h-full custom-scrollbar-tiny overflow-y-auto overflow-x-hidden",
               "outline-none appearance-none"
             )}
           >
@@ -114,9 +102,6 @@ const FavoritesComponent = forwardRef<HTMLDivElement>(
               ))}
             </ul>
           </div>
-          {hasXFavorites && (
-            <div className="absolute inset-0 pointer-events-none [background-image:linear-gradient(180deg,#171717,transparent_4rem,transparent_calc(100%-4rem),#171717_100%),linear-gradient(180deg,#171717,transparent_4rem,transparent_calc(100%-4rem),#171717_100%),linear-gradient(180deg,#171717,transparent_4rem,transparent_calc(100%-4rem),#171717_100%),linear-gradient(180deg,#171717,transparent_4rem,transparent_calc(100%-4rem),#171717_100%)]" />
-          )}
         </div>
       </>
     );
@@ -130,6 +115,7 @@ type SpecieProps = {
 const SpecieData = ({ temtem }: SpecieProps) => {
   const { minimalQueryUrl } = useUrlQuery();
   const getUrl = (tem: MinTemtem) => "/species/" + tem.name + minimalQueryUrl;
+  const closeSidebar = useSidebarState((state) => state.closeSidebar);
 
   const { data, isLoading, isError, isPaused } = useFetchTemQuery(temtem);
 
@@ -145,12 +131,12 @@ const SpecieData = ({ temtem }: SpecieProps) => {
   return (
     <li>
       <Link
-        tabIndex={-1}
         href={getUrl(specie)}
         className={clsx(
           "group/tem-link flex items-center gap-4 pl-2 pr-4 min-h-[6rem] rounded-lg cursor-pointer whitespace-nowrap text-sm",
-          "outline-none appearance-none hover:bg-neutral-800/80"
+          "outline-none appearance-none hover:bg-neutral-800/70 focus-visible:bg-neutral-800/70 focus-visible:ring-1 hover:ring-1 ring-inset ring-white/10"
         )}
+        onClick={closeSidebar}
       >
         <div className="flex w-16 h-16">
           <Image

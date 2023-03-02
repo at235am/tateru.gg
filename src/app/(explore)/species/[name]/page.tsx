@@ -4,6 +4,7 @@ import { fetchTemtem } from "../../../../utils/fetch-temtem";
 import { FavoritesButton } from "../../../../components/FavoritesButton/FavoritesButton.component";
 import { ClientDebug } from "../../../../components/ClientDebug/ClientDebug";
 import { Temtem } from "../../../../utils/augmented-types/temtems";
+import { SpecieSearchButton } from "../../../../components/SpecieSearchButton/SpecieSearchButton.component";
 
 // CANT DO THIS YET: Needs Next.js 13.2
 // export async function generateMetadata({ params, ...props }: Props) {
@@ -37,6 +38,9 @@ export default async function Tem({ params }: Props) {
       <ClientDebug value={params} />
 
       <div>{JSON.stringify(tem, null, 2)}</div>
+      <div className="sticky bottom-4 flex justify-end w-full pointer-events-none [&>*]:pointer-events-auto">
+        <SpecieSearchButton />
+      </div>
     </div>
   );
 }

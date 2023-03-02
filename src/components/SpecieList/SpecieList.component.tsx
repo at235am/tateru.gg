@@ -25,6 +25,7 @@ import {
   useState,
 } from "react";
 import { useSidebarUpdate } from "../../hooks/useSidebarUpdate";
+import { useSidebarState } from "../../store/sidebar-store";
 
 type Props = {
   species: MinTemtem[];
@@ -58,7 +59,7 @@ export const SpecieList = forwardRef<HTMLDivElement, Props>(function SpecieList(
   const hasItems = processedList.length > 0;
 
   return (
-    <div className="relative flex flex-col h-full overflow-hidden">
+    <div className="relative flex flex-col gap-2 h-full overflow-hidden">
       <SearchInput
         ref={inputRef}
         ignoreBlur={ignoreBlur}
@@ -68,7 +69,7 @@ export const SpecieList = forwardRef<HTMLDivElement, Props>(function SpecieList(
       />
       <div
         ref={ref}
-        className="relative flex flex-col h-full w-full overflow-hidden bg-neutral-900"
+        className="relative flex flex-col h-full w-full overflow-hidden"
       >
         {!hasItems && (
           <div className="mt-10 text-neutral-500 text-sm rounded-lg p-4 border border-neutral-500/20">
@@ -84,7 +85,7 @@ export const SpecieList = forwardRef<HTMLDivElement, Props>(function SpecieList(
         <div
           ref={scrollRef}
           className={clsx(
-            "flex flex-col gap-4 h-full py-8 custom-scrollbar-tiny overflow-y-auto overflow-x-hidden",
+            "flex flex-col gap-4 h-full custom-scrollbar-tiny overflow-y-auto overflow-x-hidden",
             "outline-none appearance-none"
           )}
         >
@@ -111,7 +112,7 @@ export const SpecieList = forwardRef<HTMLDivElement, Props>(function SpecieList(
           </ul>
         </div>
         {/* THIS IS THE SHADOW ON THE TOP AND BOTTOM OF THE SCROLL CONTAINER */}
-        {hasItems && <ScrollShadow />}
+        {/* {hasItems && <ScrollShadow />} */}
       </div>
     </div>
   );
@@ -138,7 +139,7 @@ const SpecieItemLink = ({
   active,
   setActiveItemId,
 }: ItemProps) => {
-  const { goToPageContent } = useSidebarUpdate();
+  const closeSidebar = useSidebarState((state) => state.closeSidebar);
   const showSortData =
     show !== "relevance" && show !== "name" && show !== "number";
 
@@ -165,11 +166,11 @@ const SpecieItemLink = ({
       href={href}
       className={clsx(
         "group/tem-link flex items-center gap-4 pl-2 pr-4 min-h-[6rem] rounded-lg cursor-pointer whitespace-nowrap text-sm",
-        "outline-none appearance-none hover:bg-neutral-800/80",
-        active ? "bg-neutral-800/80" : ""
+        "outline-none appearance-none hover:bg-neutral-800/70 hover:ring-1 ring-inset ring-white/10",
+        active ? "bg-neutral-800/70 ring-1" : ""
       )}
-      onClick={goToPageContent}
-      onMouseEnter={activateSelf}
+      onClick={closeSidebar}
+      // onMouseEnter={activateSelf}
     >
       <div className="flex w-16 h-16">
         <Image

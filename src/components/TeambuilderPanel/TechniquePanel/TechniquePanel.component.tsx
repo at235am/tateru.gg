@@ -43,13 +43,7 @@ export const TechniquePanel = ({
   );
 
   const [filter, setFilter] = useState("");
-  //  const filteredData = useMemo(() => {
-  //    return filter === ""
-  //      ? data
-  //      : data.filter(
-  //          (tech) => fuzzy(tech.name, filter) || fuzzy(tech.description, filter)
-  //        );
-  //  }, [filter, data]);
+
   const filteredData = useMemo(() => {
     return filter === ""
       ? learnedTechniques
@@ -62,26 +56,6 @@ export const TechniquePanel = ({
       <div className="rounded-full w-20 h-20 animate-pulse bg-neutral-700"></div>
     );
 
-  // if (!data || !data[0])
-  //   return (
-  //     <Tab.Panel className="flex flex-col gap-4">
-  //       <div className="grid place-items-center rounded-full w-20 h-20 bg-neutral-700">
-  //         Pick a tem first
-  //       </div>
-  //     </Tab.Panel>
-  //   );
-
-  // const updateTech = (option: TechOption) => {
-  //   const techs = [...customTem.techniques];
-  //   updateCustomTem({
-  //     id: customTem.id,
-  //     techniques: [
-  //       ...techs.slice(0, slot),
-  //       option.techName,
-  //       ...techs.slice(slot + 1),
-  //     ],
-  //   });
-  // };
   const updateTech = (techName: string) => {
     const techs = [...techniques];
     updateCustomTem({
