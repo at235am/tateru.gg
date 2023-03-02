@@ -1,6 +1,6 @@
 import "../tailwind/globals.css";
-import { Fira_Code, Sora } from "@next/font/google";
 import ReactQueryProvider from "../components/ReactQueryProvider/ReactQueryProvider";
+import { Fira_Code, Sora } from "next/font/google";
 import { Navbar } from "../components/Navbar/Navbar.component";
 import { Footer } from "../components/Footer/Footer.component";
 
@@ -14,6 +14,18 @@ const customFonts = [sora.variable, firacode.variable].join(" ");
 
 type RootLayoutProps = {
   children: React.ReactNode;
+};
+
+export const metadata = {
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 10,
+    minimumScale: 1,
+  },
+  title: "Tempal",
+  description:
+    "The best way to explore and learn about temtems to build a perfect team.",
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {

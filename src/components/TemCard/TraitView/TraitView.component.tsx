@@ -6,7 +6,6 @@
 //   traitDescBox,
 // } from "./TraitView.css";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 interface TraitData {
   ogName: string;
@@ -34,13 +33,14 @@ const traitNameExceptions = (value: string) => {
 const fetchTraitData = async (traitName: string) => {
   const cleanedTraitName = traitNameExceptions(traitName);
 
-  const res = await axios.get("https://temtem-api.mael.tech/api/traits", {
-    params: {
-      names: cleanedTraitName,
-    },
-  });
+  // const res = await axios.get("https://temtem-api.mael.tech/api/traits", {
+  //   params: {
+  //     names: cleanedTraitName,
+  //   },
+  // });
 
-  const data: TraitData[] = await res.data;
+  // const data: TraitData[] = await res.data;
+  const data: TraitData[] = [];
 
   data.forEach((trait) => {
     const { effect } = trait;

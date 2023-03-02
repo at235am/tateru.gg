@@ -6,11 +6,6 @@ import { ClientDebug } from "../../../../components/ClientDebug/ClientDebug";
 import { Temtem } from "../../../../utils/augmented-types/temtems";
 import { SpecieSearchButton } from "../../../../components/SpecieSearchButton/SpecieSearchButton.component";
 
-// CANT DO THIS YET: Needs Next.js 13.2
-// export async function generateMetadata({ params, ...props }: Props) {
-//   return { title: params };
-// }
-
 // export const revalidate = 43200; // revalidate this page every 12 hours (in seconds)
 
 type SpecieParam = {
@@ -20,6 +15,11 @@ type SpecieParam = {
 type Props = {
   params: SpecieParam;
 };
+
+export async function generateMetadata({ params }: Props) {
+  const temName = decodeURIComponent(params.name);
+  return { title: `${temName} | Tempal` };
+}
 
 export default async function Tem({ params }: Props) {
   const data = await fetchTemtem({ names: [params.name] });

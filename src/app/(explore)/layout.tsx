@@ -2,6 +2,12 @@ import { TemSearchSidebar } from "../../components/TemSearchSidebar/TemSearchSid
 import { Fields, Temtem } from "../../utils/augmented-types/temtems";
 import { fetchTemtem } from "../../utils/fetch-temtem";
 
+export const metadata = {
+  title: "Tem Search | Tempal",
+  description:
+    "Use our advanced search to search for temtems by name, types, traits, techniques, and number then sort the results by base stats or training values.",
+};
+
 type SpecieLayoutProps = {
   children: React.ReactNode;
 };

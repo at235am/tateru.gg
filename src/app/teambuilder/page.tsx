@@ -11,16 +11,7 @@ import {
   CustomTem,
 } from "../../store/temteam-store";
 
-type SpecieParam = {
-  teamId: string;
-  customTemId: string;
-};
-
-type Props = {
-  params: SpecieParam;
-};
-
-export default function TeamsViewPage({ params }: Props) {
+export default function TeamsViewPage() {
   const hasMounted = useHasMounted();
   if (!hasMounted) return <div>NOT MOUNTED</div>;
   return (
