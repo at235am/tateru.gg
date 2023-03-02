@@ -36,9 +36,6 @@ import {
   Fragment,
   ReactNode,
   useRef,
-  useEffect,
-  useState,
-  KeyboardEventHandler,
 } from "react";
 
 export type TeambuilderPanelBaseProps = {
@@ -322,7 +319,7 @@ const CustomTemDrawer = ({
         <StatTab customTem={customTem} baseStats={tem?.stats || null} />
         <NotesTab customTem={customTem} />
         <SpecieLinkSquare
-          href={"/species/" + (tem?.name || "")}
+          href={"/temsearch/" + (tem?.name || "")}
           imageUrl={temLinkImage || ""}
         />
       </div>

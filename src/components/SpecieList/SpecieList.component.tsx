@@ -14,7 +14,7 @@ import { IconChevronRight, IconFilter } from "@tabler/icons-react";
 import { SortType } from "./SpecieList.types";
 import { SORT_LABELS } from "../SortMenu/SortMenu.component";
 import { SORT_TYPE_MAP } from "./SpecieList.utils";
-import { ScrollShadow } from "../ScrollShadow/ScrollShadow.component";
+import { useSidebarState } from "../../store/sidebar-store";
 import {
   Dispatch,
   forwardRef,
@@ -24,8 +24,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { useSidebarUpdate } from "../../hooks/useSidebarUpdate";
-import { useSidebarState } from "../../store/sidebar-store";
 
 type Props = {
   species: MinTemtem[];
@@ -54,7 +52,7 @@ export const SpecieList = forwardRef<HTMLDivElement, Props>(function SpecieList(
   });
 
   const getUrl = (tem: MinTemtem) =>
-    "/species/" + tem.name + (minimalQueryUrl === "?" ? "" : minimalQueryUrl);
+    "/temsearch/" + tem.name + (minimalQueryUrl === "?" ? "" : minimalQueryUrl);
 
   const hasItems = processedList.length > 0;
 

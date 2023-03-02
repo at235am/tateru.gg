@@ -1,24 +1,30 @@
 "use client";
 
-import * as Tabs from "@radix-ui/react-tabs";
 import clsx from "clsx";
 import { ReactNode } from "react";
 import { MinTemtem } from "../../app/(explore)/layout";
 import { Favorites } from "../Favorites/Favorites.component";
 import { SpecieList } from "../SpecieList/SpecieList.component";
 import { IconHeartFilled, IconListSearch } from "@tabler/icons-react";
-import { SidebarContentType, useSidebarState } from "../../store/sidebar-store";
+import { useSidebarState } from "../../store/sidebar-store";
 import { useSidebarUpdate } from "../../hooks/useSidebarUpdate";
 import { Dialog, Switch } from "@headlessui/react";
 import { SpecieSearchButton } from "../SpecieSearchButton/SpecieSearchButton.component";
 import { AnimatePresence, motion } from "framer-motion";
+import { useHasMounted } from "../../hooks/useHasMounted";
 
 const iconProps = {
   size: 20,
   stroke: 2,
 };
 
-export const SidebarTabs = ({ species }: { species: MinTemtem[] }) => {
+export const TemSearchSidebar = ({ species }: { species: MinTemtem[] }) => {
+  const mounted = useHasMounted();
+  if (!mounted) return <></>;
+  return <SidebarVariant species={species} />;
+};
+
+const SidebarVariant = ({ species }: { species: MinTemtem[] }) => {
   const { isDesktop } = useSidebarUpdate();
 
   if (isDesktop)
@@ -27,6 +33,7 @@ export const SidebarTabs = ({ species }: { species: MinTemtem[] }) => {
         <Sidebar species={species} />
       </div>
     );
+
   return (
     <ModalSidebar>
       <Sidebar species={species} />
@@ -37,8 +44,8 @@ export const SidebarTabs = ({ species }: { species: MinTemtem[] }) => {
 const ModalSidebar = ({ children }: { children: ReactNode }) => {
   const sidebarOpened = useSidebarState((state) => state.contentIsOpen);
   const setSidebarOpen = useSidebarState((state) => state.setContentIsOpen);
-
   const close = () => setSidebarOpen(false);
+
   return (
     <Dialog
       open={sidebarOpened}
@@ -79,11 +86,9 @@ const ModalSidebar = ({ children }: { children: ReactNode }) => {
 };
 
 const Sidebar = ({ species }: { species: MinTemtem[] }) => {
-  const { contentIsOpen, contentType, setContentIsOpen, setContentType } =
-    useSidebarState();
-
   const { isDesktop } = useSidebarUpdate();
-
+  const contentType = useSidebarState((state) => state.contentType);
+  const setContentType = useSidebarState((state) => state.setContentType);
   const isSearch = contentType === "search";
 
   return (

@@ -50,9 +50,10 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     const safeUpdateUrlParams = (query: Partial<SearchQuery>) => {
       const url = getUpdatedQueryUrl(query);
 
-      // url may be something like "/" but we only want to update the url if we're in the route group (explore) so /specie or /team
-      // this edge case can come up in a useEffect() when this component has loaded before the URL gets to update to "/species" or "/team"
-      if (url.includes("species") || url.includes("team")) router.replace(url);
+      // url may be something like "/" but we only want to update the url if we're in the route group (explore) so /temsearch
+      // this edge case can come up in a useEffect() when this component has loaded before the URL gets to update to "/temsearch"
+      if (url.includes("temsearch") || url.includes("team"))
+        router.replace(url);
     };
 
     const setUrlQuery = (query: Partial<SearchQuery>) => {

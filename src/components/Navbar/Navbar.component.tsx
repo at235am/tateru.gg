@@ -5,7 +5,7 @@ import { NavItem } from "../NavList/NavList.component";
 import { NavMenu } from "../NavMenu/NavMenu.component";
 
 const links: NavItem[] = [
-  { label: "species", href: "/species" },
+  { label: "tem search", href: "/temsearch" },
   { label: "builder", href: "/teambuilder" },
   { label: "about", href: "/about" },
 ];

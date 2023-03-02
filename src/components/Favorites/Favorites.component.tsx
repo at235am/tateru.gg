@@ -3,7 +3,6 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import useVirtualScroll from "../../hooks/useVirtualScroll";
-
 import { useHasMounted } from "../../hooks/useHasMounted";
 import { useFavoritesStore } from "../../store/favorites-store";
 import { MinTemtem } from "../../app/(explore)/layout";
@@ -114,7 +113,7 @@ type SpecieProps = {
 
 const SpecieData = ({ temtem }: SpecieProps) => {
   const { minimalQueryUrl } = useUrlQuery();
-  const getUrl = (tem: MinTemtem) => "/species/" + tem.name + minimalQueryUrl;
+  const getUrl = (tem: MinTemtem) => "/temsearch/" + tem.name + minimalQueryUrl;
   const closeSidebar = useSidebarState((state) => state.closeSidebar);
 
   const { data, isLoading, isError, isPaused } = useFetchTemQuery(temtem);
